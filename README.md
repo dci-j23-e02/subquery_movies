@@ -63,7 +63,7 @@ This runs the `App.java` class, demonstrating various subquery operations on the
 
 - [Java](https://www.oracle.com/java/) - Programming language
 - [PostgreSQL](https://www.postgresql.org/) - Database management system
-- [JDBC](https://www.oracle.com/java/technologies/javase/jdbc.html) - Java Database Connectivity
+- [JDBC](https://jdbc.postgresql.org/) - Java Database Connectivity
 
 ## Author
 
