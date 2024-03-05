@@ -56,4 +56,25 @@ public class MovieDaoImpl implements MovieDao {
     }
     return actors;
   }
+
+  @Override
+  public List<String> findActorsByMovieReleaseYears(List<Integer> years) {
+    List<String> actorsNames = new ArrayList<>();
+    Integer[] yearsArray = years.toArray(new Integer[0]);
+
+    try(
+        Connection connection = ConnectionFactory.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlQuery.FIND_ACTORS_BY_MOVIE_RELEASE_YEARS.query);
+    ){
+      preparedStatement.setArray(1, connection.createArrayOf("integer", yearsArray));
+      ResultSet resultSet = preparedStatement.executeQuery();
+      while(resultSet.next()){
+        actorsNames.add(resultSet.getString("name"));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return actorsNames;
+  }
 }

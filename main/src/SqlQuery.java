@@ -12,6 +12,13 @@ public enum SqlQuery {
   FIND_ACTORS_FOR_MOVIES_NOT_IN_YEAR(
       "SELECT name FROM actors WHERE movie_id NOT IN"
         +"(SELECT id FROM moviestable WHERE release_year < ?)"
+  ),
+  FIND_ACTORS_BY_MOVIE_RELEASE_YEARS(
+      "SELECT DISTINCT a.name FROM actors a"
+          + " WHERE a.movie_id = ANY("
+          + "    SELECT id FROM moviestable"
+          + "    WHERE release_year = ANY(ARRAY[?])"
+          + "    )"
   );
 
   public final String query;
@@ -19,4 +26,5 @@ public enum SqlQuery {
   SqlQuery(String query) {
     this.query = query;
   }
+
 }
