@@ -7,4 +7,5 @@ public interface MovieDao {
   List<String> findActorsInGenre(String genre);
   List<String> findActorsForMoviesNotInYear(int year);
   List<String> findActorsByMovieReleaseYears(List<Integer> years);
+  List<Movie> findMoviesNewerThanGenre(String genre);
 }

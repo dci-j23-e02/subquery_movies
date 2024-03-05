@@ -19,6 +19,12 @@ public enum SqlQuery {
           + "    SELECT id FROM moviestable"
           + "    WHERE release_year = ANY(ARRAY[?])"
           + "    )"
+  ),
+  FIND_MOVIES_NEWER_THAN_ALL_GENRE(
+      "SELECT * FROM moviestable "
+          + " WHERE release_year > ALL("
+          + "    SELECT  release_year FROM moviestable WHERE genre = ? "
+          + "    );"
   );
 
   public final String query;

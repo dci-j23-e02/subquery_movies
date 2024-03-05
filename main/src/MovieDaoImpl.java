@@ -77,4 +77,33 @@ public class MovieDaoImpl implements MovieDao {
 
     return actorsNames;
   }
+
+  @Override
+  public List<Movie> findMoviesNewerThanGenre(String genre) {
+    List<Movie> movies = new ArrayList<>();
+    try(
+        Connection connection = ConnectionFactory.getConnection();
+        PreparedStatement pstmn = connection.prepareStatement(SqlQuery.FIND_MOVIES_NEWER_THAN_ALL_GENRE.query);
+        ){
+      pstmn.setString(1, genre);
+      ResultSet rs = pstmn.executeQuery();
+      while (rs.next()){
+        Movie m = new Movie();
+        m.setId(rs.getInt("id"));
+        m.setTitle(rs.getString("title"));
+        m.setReleaseYear(rs.getInt("release_year"));
+        m.setGenre(rs.getString("genre"));
+        movies.add(m);
+//        movies.add(new Movie(
+//            rs.getInt("id"),
+//            rs.getString("title"),
+//            ...
+//        ));
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return movies;
+  }
 }
